@@ -18,15 +18,16 @@
 }
 
 .header-logo {
-  border-radius: 100%;
+  /*border-radius: 100%;
   padding: .25em;
   border: 1px solid var(--color-lighter-border);
-  box-shadow: 0px 0px 6px -2px rgb(0 0 0 / 20%);
+  box-shadow: 0px 0px 6px -2px rgb(0 0 0 / 20%);*/
+  /*height: 2em;*/
 }
 
 #header-logo-img {
-  width: 4em;
-  height: 4em;
+  /*width: 4em;*/
+  height: 2.5em;
 }
 
 .header-icons-container {
@@ -67,8 +68,13 @@ a:visited {
   .header-icons-container {
     display: none;
   }
+
   .header-burger-icon{ 
     display: block;
+  }
+
+  .search-bar {
+    width: 35vw;
   }
 }
 

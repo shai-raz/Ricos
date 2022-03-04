@@ -1,0 +1,61 @@
+POST http://localhost:8081/users/login
+Content-Type: application/json
+
+{
+    "name": "1",
+    "password": "123456"
+}
+
+###
+
+POST http://localhost:8081/users/post
+Content-Type: application/json
+
+{
+    "firstName": "11212",
+    "lastName": "123456",
+    "username": "12121",
+    "mail": "1",
+    "password": "1"
+}
+
+###
+
+POST http://localhost:8081/users/follow
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
+Content-Type: application/json
+
+{
+    "uid": "1"
+}
+
+###
+
+DELETE http://localhost:8081/users/unfollow
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
+Content-Type: application/json
+
+{
+    "uid":"2"
+}
+
+###
+
+GET http://localhost:8081/users/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
+
+### 
+
+GET http://localhost:8081/users/self/id
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
+
+###
+
+POST http://localhost:8081/recipes/like
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
+
+{
+    "rid": 1
+}
+

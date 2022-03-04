@@ -1,11 +1,12 @@
 import logo from '../img/logo.png'
+import ricos from "../img/ricos.png"
 import SearchBar from './SearchBar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowAltCircleRight } from '@fortawesome/free-regular-svg-icons'
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons'
 import { faCompass } from '@fortawesome/free-regular-svg-icons'
-import ricos from "../img/ricos.png"
+
 
 import '../css/header.css'
 import { faBars, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
@@ -16,7 +17,7 @@ const Header = () => {
             <div className="header-inner-container">
                 <a href="/">
                     <div className="header-logo">
-                        <img id="header-logo-img" src={logo} alt="Logo!" />
+                        <img id="header-logo-img" src={ricos} alt="Logo!" />
                     </div>
                 </a>
                 <div>
