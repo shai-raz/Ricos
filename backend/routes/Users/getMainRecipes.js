@@ -1,7 +1,7 @@
-const express = require("express");
-const { authenticateToken } = require("../../services/auth");
-const router = express.Router();
-const getMainRecipes = require("../../services/Users/getMainRecipes");
+const express = require("express")
+const { authenticateToken } = require("../../services/auth")
+const router = express.Router()
+const getMainRecipes = require("../../services/Users/getMainRecipes")
 
 router.get("/users/main/", authenticateToken, async function (req, res, next) {
     try {
@@ -20,9 +20,9 @@ router.get("/users/main/", authenticateToken, async function (req, res, next) {
                 return res.json(await getMainRecipes.getMainRecipes(uid))
         }*/
     } catch (err) {
-        console.error(`Error while getting recipe`, err.message);
-        next(err);
+        console.error(`Error while getting recipe`, err.message)
+        next(err)
     }
-});
+})
 
-module.exports = router;
+module.exports = router

@@ -1,4 +1,3 @@
-import logo from '../img/logo.png'
 import ricos from "../img/ricos.png"
 import SearchBar from './SearchBar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
