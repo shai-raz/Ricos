@@ -1,22 +1,25 @@
-const db = require("../db");
+const db = require("../db")
 
 async function createRecipe(uid, date, title, desc, img, ingredients, steps) {
-  const result = await db.query(
-    "INSERT INTO `Recipe`(`uid`, `date`, `title`, `description`, `img`, `ingredients`, `steps`) VALUES(?, ?, ?, ?, ?, ?, ?); UPDATE Users SET numOfRecipes = 1 WHERE uid = ?;",
-    [uid, date, title, desc, img, ingredients, steps, uid]
-  );
+  const insertRecipe = await db.query(
+    "INSERT INTO `Recipe`(`uid`, `date`, `title`, `description`, `img`, `ingredients`, `steps`) VALUES(?, ?, ?, ?, ?, ?, ?)",
+    [uid, date, title, desc, img, ingredients, steps]
+  )
 
-  //const result = await db.query("UPDATE Users SET numOfRecipes = 1 WHERE uid = 1;")
+  const updateNumOfRecipes = await db.query(
+    "UPDATE `Users` SET `numOfRecipes` = `numOfRecipes` + 1 WHERE `uid` = ?",
+    [uid]
+  )
 
-  let message = "Error in creating recipe";
+  let message = "Error creating recipe"
 
-  if (result.affectedRows) {
-    message = "Recipe created successfully";
+  if (insertRecipe.affectedRows && updateNumOfRecipes.affectedRows) {
+    message = "Recipe created successfully"
   }
 
-  return { message };
+  return { message }
 }
 
 module.exports = {
   createRecipe,
-};
+}

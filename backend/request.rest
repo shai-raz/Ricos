@@ -59,3 +59,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuY
     "rid": 1
 }
 
+###
+
+POST http://localhost:8081/recipes/post
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
+
+{
+    "title": "1",
+    "description": "1",
+    "ingredients": "[1,2,3]",
+    "steps": "[1,2,3]",
+    "img": "1"
+}

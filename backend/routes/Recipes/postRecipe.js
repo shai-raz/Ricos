@@ -1,11 +1,12 @@
 const express = require("express")
+const { authenticateToken } = require("../../services/auth")
 const router = express.Router()
 const postRecipe = require("../../services/Recipes/postRecipe")
 
-router.post("/recipes/post", async function (req, res, next) {
+router.post("/recipes/post", authenticateToken, async function (req, res, next) {
   try {
-    const uid = req.body.uid
-    const date = req.body.date
+    const uid = req.user.uid
+    const date = new Date()
     const title = req.body.title
     const description = req.body.description
     const img = req.body.img
@@ -14,7 +15,7 @@ router.post("/recipes/post", async function (req, res, next) {
 
     if (
       !uid ||
-      !date ||
+      //!date ||
       !title ||
       !description ||
       !img ||

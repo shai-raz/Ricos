@@ -1,3 +1,7 @@
+:root {
+    --new-post-ingredients-line-height: 4em;
+}
+
 .new-post-container {
     width: 100%;
     height: 100%;
@@ -16,11 +20,15 @@
     margin-top: 1em;
 }
 
-.new-post-form input {
+.new-post-input {
     width: 20em;
     height: 2.5em;
     margin-top: .25em;
     padding-left: 10px;
+}
+
+.new-post-input[type="file"] {
+    border-bottom: 0;
 }
 
 .new-post-input-wrapper {
@@ -41,14 +49,147 @@
     border-bottom: 1px solid var(--color-lighter-border);
 }
 
-.new-post-input-ingredients {
-    border: 1px solid black;
-    min-width: 20em;
-    display: grid;
-    grid-template-columns: 1fr 1fr 3fr;
-    text-align:center;
+.new-post-ingredients-container {
+    position: relative;
+    max-width: 90%;
+    margin-top: .5em;
 }
 
-.new-post-input-ingredients div {
-    border: 1px solid red;
+.new-post-input-ingredients-container {
+    border: 1px solid var(--color-lighter-border);
+    display: grid;
+    grid-template-columns: .1fr .1fr 1fr 3fr;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    align-self: center;
 }
+
+.new-post-input-ingredients-container div:nth-of-type(n+5) {
+    display: flex;
+    position: relative;
+    height: var(--new-post-ingredients-line-height);
+    border-top: 1px solid var(--color-lighter-border);
+    padding: 0 .75em 0 .75em;
+    box-sizing: content-box;
+    align-items: center;
+    justify-content: center;
+}
+
+.new-post-ingredients-header {
+    display: flex;
+    font-weight: 600;
+    font-size: .85em;
+    height: 2em;
+    padding: .5em;
+    border: 0 !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.new-post-ingredients-delete svg {
+    cursor: pointer;
+}
+
+.new-post-ingredients-container input,
+.new-post-ingredients-container select {
+    width: 100%;
+    border: 1px solid var(--color-light-border);
+    height: 1.75em;
+    box-sizing: border-box;
+}
+
+.new-post-ingredients-amount-input {
+    text-align: center;
+}
+
+.new-post-ingredients-add {
+    cursor: pointer;
+    position: absolute;
+    bottom: calc(var(--new-post-ingredients-line-height) / 2);
+    right: -.65em;
+    color: green;
+}
+
+.new-post-ingredients-add:hover {
+    color: rgb(13, 173, 13);
+}
+
+.new-post-steps-container {
+    position: relative;
+    max-width: 90%;
+    margin-top: .5em;
+}
+
+.new-post-steps-container .new-post-input-label,
+.new-post-ingredients-container .new-post-input-label {
+    align-self: center;
+    margin-bottom: .5em;
+}
+
+.new-post-input-steps-container {
+    display: grid;
+    grid-template-columns: 1fr 10fr 1fr;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    align-self: center;
+    gap: .5em;
+}
+
+.new-post-input-steps-container div {
+    position: relative;
+}
+
+.new-post-steps-container textarea {
+    width: 100%;
+    border: 1px solid var(--color-light-border);
+    min-height: 5em;
+    width: 25em;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.new-post-steps-add {
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    right: 1.25em;
+    color: green;
+}
+
+.new-post-steps-add:hover {
+    color: rgb(13, 173, 13);
+}
+
+.new-post-steps-delete {
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    right: 1.25em;
+    color: red;
+}
+
+.new-post-steps-delete:hover {
+    color: rgb(192, 24, 24);
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .new-post-steps-container textarea {
+        width: 70vw;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}
