@@ -3,7 +3,7 @@ const env = process.env
 
 const express = require("express")
 const cors = require("cors")
-const port = env.PORT || 8081
+const port = env.PORT || 8000
 
 /* Recipes */
 const getRecipeRouter = require("./routes/Recipes/getRecipe")
