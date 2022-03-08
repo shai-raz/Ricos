@@ -145,7 +145,9 @@ const Post = (props) => {
 
             <div className="post-body">
                 <div className="post-img-container" onDoubleClick={like}>
-                    <img className="post-img" src={'data:image/png;base64, ' + img} alt="recipe" />
+                    <img className="post-img"
+                        src={'data:image/png;base64, ' + img}
+                        alt="recipe" />
                 </div>
             </div>
 
