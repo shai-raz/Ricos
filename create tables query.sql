@@ -19,7 +19,7 @@ CREATE TABLE Recipe (
 	date DATETIME NOT NULL,
 	title VARCHAR(255) NOT NULL,
 	description TEXT(1000),
-	img TEXT(1000),
+	img LONGTEXT,
 	ingredients TEXT,
 	steps MEDIUMTEXT,
 	numOfLikes INT DEFAULT 0,

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import PopupPost from './PopupPost';
+import { useState } from 'react'
+import PopupPost from './PopupPost'
 import '../css/profileminipost.css'
 
 
@@ -12,14 +12,17 @@ const ProfileMiniPost = (props) => {
     const description = props.description
     const img = props.img
     const title = props.title
-    const numOfLikes =props.numOfLikes
+    const numOfLikes = props.numOfLikes
     //const numOfLikes = numOfLikesState ? numOfLikesState : props.numOfLikes
 
     return (
         <div className="profile-mini-post-container" >
             <div onClick={() => { setPopupPostVisible(true) }}>
                 <div className="profile-mini-post-img-container" >
-                    <img className="profile-mini-post-img" src={img} alt="recipe" />
+                    <img
+                        className="profile-mini-post-img"
+                        src={'data:image/png;base64, ' + img}
+                        alt="recipe" />
                 </div>
 
                 <div className="profile-mini-post-footer">
