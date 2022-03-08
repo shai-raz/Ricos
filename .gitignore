@@ -341,3 +341,4 @@ Ricos-App/server/request.rest
 frontend/run.bat
 backend/.env
 frontend/public/robots.txt
+backend/heroku_set_env.bat
