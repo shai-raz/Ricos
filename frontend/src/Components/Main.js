@@ -1,11 +1,12 @@
-import Post from "./Post";
-import "../css/main.css";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { BASE_API_URL } from "../consts";
+import Post from "./Post"
+import "../css/main.css"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import { BASE_API_URL } from "../consts"
+import Loading from "./Loading"
 
 const Main = () => {
-    const [recipes, setRecipes] = useState([{}]);
+    const [recipes, setRecipes] = useState()
     const jwt = localStorage.getItem('jwt')
 
     useEffect(() => {
@@ -26,11 +27,14 @@ const Main = () => {
                 })
         }
         fetchRecipes()
-    }, [jwt]);
+    }, [jwt])
 
     return (
-        <div class="container-main">
-            {recipes.map((recipe, i) => {
+        <div className="main-container">
+            {!recipes &&
+                <Loading  />
+            }
+            {recipes?.map((recipe, i) => {
                 return (
                     <Post
                         key={i}
@@ -47,7 +51,7 @@ const Main = () => {
                 )
             })}
         </div>
-    );
-};
+    )
+}
 
-export default Main;
+export default Main

@@ -4,11 +4,12 @@ import '../css/profile.css'
 import ProfileMiniPost from './ProfileMiniPost'
 import ProfilePicture from './ProfilePicture'
 import { BASE_API_URL, SELF_UID_API_URL, UNFOLLLOW_API_URL } from '../consts'
+import Loading from './Loading'
 
 const Profile = (props) => {
     const [uid, setUid] = useState(props.match.params.uid)
     const [selfUser, setSelfUser] = useState(false) // determines if the user is viewing their own profile
-    const [userInfo, setUserInfo] = useState({})
+    const [userInfo, setUserInfo] = useState()
     const [recipes, setRecipes] = useState([])
     const jwt = localStorage.getItem('jwt')
 
@@ -98,6 +99,11 @@ const Profile = (props) => {
         fetchUserRecipes()
     }, [fetchUserInfo, fetchUserRecipes, uid])
 
+    if (!userInfo)
+        return (
+            <Loading />
+        )
+
     if (userInfo === -1)
         return (
             <div className="profile-container">
@@ -106,67 +112,66 @@ const Profile = (props) => {
                 </div>
             </div>
         )
-    else
-        return (
 
-            <div className="profile-container">
-                <div className="profile-info">
-                    <div className="profile-info-left">
-                        <ProfilePicture
-                            size="lg"
-                            isLink={false}
-                            imgUrl={userInfo.profilePic} />
-                    </div>
-
-                    <div className="profile-info-center">
-                        <div className="profile-name-and-follow">
-                            <div className="profile-info-name">
-                                {userInfo.firstName} {userInfo.lastName}
-                            </div>
-
-                            <div className="profile-follow">
-                                {!selfUser ?
-                                    <button className="profile-follow-button" onClick={followUser}>
-                                        {(userInfo?.following ? "Unfollow" : "Follow")}
-                                    </button>
-                                    : ""}
-                            </div>
-                        </div>
-
-                        <div className="profile-info-bio">
-                            {userInfo.bio}
-                        </div>
-                    </div>
-
-                    <div className="profile-info-right">
-                        <div className="profile-info-stats">
-                            <span>
-                                <strong>{userInfo.numOfRecipes}</strong> Recipes
-                            </span>
-                            <span>
-                                <strong>{userInfo.numOfFollowers}</strong> Followers
-                            </span>
-                            <span>
-                                <strong>{userInfo.numOfFollowing}</strong> Following
-                            </span>
-                        </div>
-                    </div>
-
+    return (
+        <div className="profile-container">
+            <div className="profile-info">
+                <div className="profile-info-left">
+                    <ProfilePicture
+                        size="lg"
+                        isLink={false}
+                        imgUrl={userInfo.profilePic} />
                 </div>
 
-                <div className="profile-posts">
-                    {recipes.map((recipe, i) => {
-                        return <ProfileMiniPost
-                            key={i}
-                            postId={recipe.rid}
-                            authorId={recipe.uid}
-                            title={recipe.title}
-                            img={recipe.img}
-                            description={recipe.description}
-                            authorName={userInfo.firstName + ' ' + userInfo.lastName}
-                            numOfLikes={recipe.numOfLikes} />
-                    })}
-                    {/*<ProfileMiniPost
+                <div className="profile-info-center">
+                    <div className="profile-name-and-follow">
+                        <div className="profile-info-name">
+                            {userInfo.firstName} {userInfo.lastName}
+                        </div>
+
+                        <div className="profile-follow">
+                            {!selfUser ?
+                                <button className="profile-follow-button" onClick={followUser}>
+                                    {(userInfo?.following ? "Unfollow" : "Follow")}
+                                </button>
+                                : ""}
+                        </div>
+                    </div>
+
+                    <div className="profile-info-bio">
+                        {userInfo.bio}
+                    </div>
+                </div>
+
+                <div className="profile-info-right">
+                    <div className="profile-info-stats">
+                        <span>
+                            <strong>{userInfo.numOfRecipes}</strong> Recipes
+                        </span>
+                        <span>
+                            <strong>{userInfo.numOfFollowers}</strong> Followers
+                        </span>
+                        <span>
+                            <strong>{userInfo.numOfFollowing}</strong> Following
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div className="profile-posts">
+                {recipes.map((recipe, i) => {
+                    return <ProfileMiniPost
+                        key={i}
+                        postId={recipe.rid}
+                        authorId={recipe.uid}
+                        title={recipe.title}
+                        img={recipe.img}
+                        description={recipe.description}
+                        authorName={userInfo.firstName + ' ' + userInfo.lastName}
+                        numOfLikes={recipe.numOfLikes} />
+                })}
+                {/*<ProfileMiniPost
                     postId="1"
                     title="Avocado Dip"
                     img="https://d1yfn1dfres2va.cloudfront.net/001/8c/f4/8cf48a1dac2eb3f409e62952dbbbd442_640m.jpg"
@@ -191,9 +196,9 @@ const Profile = (props) => {
                     title="New York Strip"
                     img="https://i.pinimg.com/736x/ea/fd/60/eafd600a934d3fb7ef4a228387953485.jpg"
                     description="Delicious steak" /> */}
-                </div>
             </div>
-        )
+        </div>
+    )
 }
 
 export default Profile
