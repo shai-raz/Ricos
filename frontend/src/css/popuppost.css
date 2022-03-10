@@ -9,6 +9,7 @@
     justify-content: center;
     align-items: center;
     padding: 0em;
+    z-index: 1000;
 }
 
 .popuppost-post-container {

@@ -15,7 +15,8 @@ const ProfilePicture = (props) => {
                 <a href={"/profile/" + id}>
                     <img className={"profile-picture-img-" + size} src={imgUrl} alt="profile" />
                 </a> :
-                <img className={"profile-picture-img-" + size} src={imgUrl} alt="profile" />}
+                <img className={"profile-picture-img-" + size} src={imgUrl} alt="profile" />
+            }
         </div>
     )
 }
