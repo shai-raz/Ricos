@@ -1,11 +1,11 @@
-const db = require("../db");
+const db = require("../db")
 
 async function getRecipe(rid) {
-  const result = await db.query("SELECT * FROM `Recipe` WHERE rid = ?", [rid]);
+  const result = await db.query("SELECT * FROM `Recipe` WHERE rid = ?", [rid])
 
-  return { result };
+  return { result }
 }
 
 module.exports = {
   getRecipe,
-};
+}
