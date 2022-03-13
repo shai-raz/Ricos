@@ -31,9 +31,8 @@ const Main = () => {
 
     return (
         <div className="main-container">
-            {!recipes &&
-                <Loading  />
-            }
+            {!recipes && <Loading />}
+            {recipes?.length === 0 && "Couldn't find recipes"}
             {recipes?.map((recipe, i) => {
                 return (
                     <Post

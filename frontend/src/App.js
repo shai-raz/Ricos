@@ -27,7 +27,7 @@ const App = () => {
   else
     return (
       <Router>
-        <div className="main-container">
+        <div className="app-container">
           <Switch>
             <Route path="/logout" component={Logout} />
             <Route>
