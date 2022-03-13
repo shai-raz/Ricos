@@ -3,8 +3,12 @@
     /*border-bottom: 1px solid gainsboro;*/
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
     margin-left: 16px;
     margin-top: 16px;
+    background-color: var(--color-header-light);
+    box-shadow: 0px -.5px 6px -2px rgb(0 0 0 / 20%);
 }
 
 .profile-mini-post-container a {
@@ -53,7 +57,12 @@
 }
 
 .profile-mini-post-description {
+    display: block;
     font-size: 11pt;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
 }
 
 /* Extra small devices (phones, 600px and down) */
@@ -75,7 +84,11 @@
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 
-@media only screen and (min-width: 600px) {}
+@media only screen and (min-width: 600px) {
+    .profile-mini-post-container {
+        max-width: 240px;
+    }
+}
 
 /* Medium devices (landscape tablets, 768px and up) */
 
