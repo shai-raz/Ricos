@@ -7,6 +7,9 @@ async function checkUserLogin(usernameOrMail, password) {
     [usernameOrMail, usernameOrMail]
   )
 
+  if (salt.length == 0)
+    return null
+
   salt = salt[0].salt
   const hashedPass = hashPasswordWithSalt(password, salt)
 
