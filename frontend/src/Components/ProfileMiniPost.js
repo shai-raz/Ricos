@@ -6,13 +6,14 @@ import '../css/profileminipost.css'
 const ProfileMiniPost = (props) => {
     const [popupPostVisible, setPopupPostVisible] = useState(false)
 
-    const postId = props.postId
-    const authorId = props.authorId
+    const recipe = props.recipe
+    const postId = recipe.id
+    const authorId = recipe.uid
+    const description = recipe.description
+    const img = recipe.img
+    const title = recipe.title
+    const numOfLikes = recipe.numOfLikes
     const authorName = props.authorName
-    const description = props.description
-    const img = props.img
-    const title = props.title
-    const numOfLikes = props.numOfLikes
     //const numOfLikes = numOfLikesState ? numOfLikesState : props.numOfLikes
 
     return (
@@ -37,13 +38,8 @@ const ProfileMiniPost = (props) => {
             {popupPostVisible
                 &&
                 <PopupPost
-                    title={title}
-                    authorId={authorId}
+                    recipe={recipe}
                     authorName={authorName}
-                    postId={postId}
-                    img={img}
-                    numOfLikes={numOfLikes}
-                    description={description}
                     setVisible={setPopupPostVisible} />
             }
         </div>
