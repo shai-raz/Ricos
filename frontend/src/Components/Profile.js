@@ -5,12 +5,13 @@ import ProfileMiniPost from './ProfileMiniPost'
 import ProfilePicture from './ProfilePicture'
 import { BASE_API_URL, SELF_UID_API_URL, UNFOLLLOW_API_URL } from '../consts'
 import Loading from './Loading'
+import Recipe from '../helpers/Recipe'
 
 const Profile = (props) => {
     const [uid, setUid] = useState(props.match.params.uid)
     const [selfUser, setSelfUser] = useState(false) // determines if the user is viewing their own profile
     const [userInfo, setUserInfo] = useState()
-    const [recipes, setRecipes] = useState([])
+    const [recipes, setRecipes] = useState()
     const jwt = localStorage.getItem('jwt')
 
     const headers = useMemo(() => {
@@ -54,8 +55,25 @@ const Profile = (props) => {
         axios
             .get(`${BASE_API_URL}/users/${uid}/recipes`)
             .then((res) => {
+                // convert recipes to Recipe objects
+                const newRecipes = res.data.result.map(
+                    recipe => {
+                        return new Recipe(
+                            recipe['rid'],
+                            recipe['uid'],
+                            recipe['date'],
+                            recipe['title'],
+                            recipe['description'],
+                            recipe['img'],
+                            recipe['ingredients'],
+                            recipe['steps'],
+                            recipe['numOfLikes']
+                        )
+                    })
+
+                //console.log(newRecipes)
                 //console.log(res.data.result)
-                setRecipes(res.data.result)
+                setRecipes(newRecipes)
             })
             .catch((err) => {
                 console.error(err)
@@ -96,8 +114,10 @@ const Profile = (props) => {
             fetchSelfUserId()
         else
             fetchUserInfo()
-        fetchUserRecipes()
-    }, [fetchUserInfo, fetchUserRecipes, uid])
+        
+        if (userInfo)
+            fetchUserRecipes()
+    }, [fetchUserInfo, fetchUserRecipes, userInfo, uid])
 
     if (!userInfo)
         return (
@@ -131,7 +151,7 @@ const Profile = (props) => {
 
                         <div className="profile-follow">
                             {!selfUser ?
-                                <button className="profile-follow-button" onClick={followUser}>
+                                <button className={`profile-follow-button ${(userInfo?.following ? 'profile-unfollow-button' : '')}`} onClick={followUser}>
                                     {(userInfo?.following ? "Unfollow" : "Follow")}
                                 </button>
                                 : ""}
@@ -160,16 +180,13 @@ const Profile = (props) => {
             </div>
 
             <div className="profile-posts">
-                {recipes.map((recipe, i) => {
+                {!recipes && <Loading />}
+                {recipes?.length === 0 && <div className="profile-posts-no-recipes">User has no recipes</div>}
+                {recipes?.map((recipe, i) => {
                     return <ProfileMiniPost
                         key={i}
-                        postId={recipe.rid}
-                        authorId={recipe.uid}
-                        title={recipe.title}
-                        img={recipe.img}
-                        description={recipe.description}
-                        authorName={userInfo.firstName + ' ' + userInfo.lastName}
-                        numOfLikes={recipe.numOfLikes} />
+                        recipe={recipe}
+                        authorName={userInfo.firstName + ' ' + userInfo.lastName} />
                 })}
                 {/*<ProfileMiniPost
                     postId="1"
