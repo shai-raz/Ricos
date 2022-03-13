@@ -1,13 +1,25 @@
-const db = require("../db");
+const db = require("../db")
 
 async function unfollowUser(followerId, followsId) {
     try {
-        const result = await db.query(
+        const deleteFollow = await db.query(
             "DELETE FROM `Follows` WHERE uid = ? and followerId = ?",
             [followsId, followerId]
         )
 
-        return result.affectedRows != 0
+        const updateNumOfFollowersForFollowed = await db.query(
+            "UPDATE `Users` SET `numOfFollowers` = `numOfFollowers` - 1 WHERE `uid` = ?",
+            [followsId]
+        )
+
+        const updateNumOfFollowersForFollower = await db.query(
+            "UPDATE `Users` SET `numOfFollowing` = `numOfFollowing` - 1 WHERE `uid` = ?",
+            [followerId]
+        )
+
+        return deleteFollow.affectedRows != 0
+            && updateNumOfFollowersForFollowed.affectedRows != 0
+            && updateNumOfFollowersForFollower.affectedRows != 0
 
     } catch (err) {
         console.log(err)
@@ -17,4 +29,4 @@ async function unfollowUser(followerId, followsId) {
 
 module.exports = {
     unfollowUser,
-};
+}
