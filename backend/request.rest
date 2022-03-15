@@ -19,7 +19,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8081/users/post
+POST http://localhost:8000/users/post
 Content-Type: application/json
 
 {
@@ -32,7 +32,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8081/users/follow
+POST http://localhost:8000/users/follow
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
 Content-Type: application/json
 
@@ -42,7 +42,7 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:8081/users/unfollow
+DELETE http://localhost:8000/users/unfollow
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
 Content-Type: application/json
 
@@ -52,22 +52,22 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8081/users/1
+GET http://localhost:8000/users/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
 
 ### 
 
-GET http://localhost:8081/users/main
+GET http://localhost:8000/users/main
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
 
 ###
 
-GET http://localhost:8081/users/self/id
+GET http://localhost:8000/users/self/id
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
 
 ###
 
-POST http://localhost:8081/recipes/like
+POST http://localhost:8000/recipes/like
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
 
@@ -77,7 +77,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuY
 
 ###
 
-POST http://localhost:8081/recipes/post
+GET http://localhost:8000/recipes/getcomments/1
+
+###
+
+POST http://localhost:8000/recipes/post
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
 
@@ -87,4 +91,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuY
     "ingredients": "[1,2,3]",
     "steps": "[1,2,3]",
     "img": "1"
+}
+
+###
+
+POST http://localhost:8000/recipes/comments/post
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMiIsIm1haWwiOiIyQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikdlb3JnZSIsImxhc3ROYW1lIjoiQnVzaCIsImlhdCI6MTY0NzE4OTM4OX0.sidZFYI8DrbCVzB-HUBAtdAYb79nNRxZRiOz22t8YsE
+
+{
+    "rid": 1,
+    "content": "Yummy Yummyyyyyyy"
 }
