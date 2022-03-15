@@ -9,8 +9,9 @@ import Recipe from '../helpers/Recipe'
 
 const Profile = (props) => {
     const [uid, setUid] = useState(props.match.params.uid)
-    const [selfUser, setSelfUser] = useState(false) // determines if the user is viewing their own profile
     const [userInfo, setUserInfo] = useState()
+    const [selfUser, setSelfUser] = useState(typeof props.match.params.uid === 'undefined')
+    const [selfUserId, setSelfUserId] = useState(-1)
     const [recipes, setRecipes] = useState()
     const jwt = localStorage.getItem('jwt')
 
@@ -30,9 +31,10 @@ const Profile = (props) => {
         axios
             .get(SELF_UID_API_URL, config)
             .then((res) => {
-                console.log("self user id: ", res.data)
-                setUid(res.data)
-                setSelfUser(true)
+                //console.log("self user id: ", res.data)
+                setSelfUserId(res.data)
+                if (selfUser)
+                    setUid(res.data)
             })
     }, [config])
 
@@ -61,6 +63,8 @@ const Profile = (props) => {
                         return new Recipe(
                             recipe['rid'],
                             recipe['uid'],
+                            recipe['fullName'],
+                            recipe['profilePic'],
                             recipe['date'],
                             recipe['title'],
                             recipe['description'],
@@ -72,7 +76,6 @@ const Profile = (props) => {
                     })
 
                 //console.log(newRecipes)
-                //console.log(res.data.result)
                 setRecipes(newRecipes)
             })
             .catch((err) => {
@@ -109,15 +112,21 @@ const Profile = (props) => {
     }
 
     useEffect(() => {
-        /* if there's no uid, visit self profile */
-        if (!uid)
-            fetchSelfUserId()
-        else
+        // get user own id
+        fetchSelfUserId()
+
+        // fetch user info 
+        if (uid && !userInfo)
             fetchUserInfo()
-        
-        if (userInfo)
+
+        // fetch user recipes
+        if (uid)
             fetchUserRecipes()
-    }, [fetchUserInfo, fetchUserRecipes, userInfo, uid])
+
+        if (userInfo && selfUserId !== -1)
+            if (userInfo?.uid === selfUserId)
+                setSelfUser(true)
+    }, [userInfo, uid, selfUserId])
 
     if (!userInfo)
         return (
@@ -185,8 +194,7 @@ const Profile = (props) => {
                 {recipes?.map((recipe, i) => {
                     return <ProfileMiniPost
                         key={i}
-                        recipe={recipe}
-                        authorName={userInfo.firstName + ' ' + userInfo.lastName} />
+                        recipe={recipe} />
                 })}
                 {/*<ProfileMiniPost
                     postId="1"
