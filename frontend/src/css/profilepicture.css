@@ -1,3 +1,8 @@
+.profile-picture-container {
+    margin-right: .25em;
+    margin-bottom: .125em;
+}
+
 .profile-picture-img-xs,
 .profile-picture-img-sm,
  .profile-picture-img-lg {

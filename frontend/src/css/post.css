@@ -23,6 +23,7 @@
     justify-content: center;
     background-color: var(--color-header-light);
     box-shadow: 0px 0px 6px -2px rgb(0 0 0 / 20%);
+    box-sizing: border-box;
 }
 
 /*.post-container > div {
@@ -41,25 +42,27 @@
 }
 
 .post-header-left {
-    margin-left: 8px;
+    margin-left: .5em;
 }
 
 .post-header-center {
     flex-direction: column;
-    margin-left: 12px;
+    margin-left: .75em;
 }
 
 .post-header-right {
     margin-left: auto;
-    margin-right: 8px;
+    margin-right: .5em;
 }
 
 .dropdown-menu-button {
+    cursor: pointer;
     background-color: transparent;
     border: none;
 }
 
 .post-recipe-title {
+    cursor: pointer;
     font-size: large;
     font-weight: 600;
 }
@@ -82,28 +85,28 @@
 }
 
 .post-footer {
-    padding: 16px;
+    padding: 1em;
     border-bottom: 1px solid gainsboro;
 }
 
 .post-actions>* {
-    margin-right: 12px;
+    margin-right: .5em;
 }
 
 .post-likes {
-    margin-top: 8px;
+    margin-top: .5em;
 }
 
 .post-description {
-    margin-top: 8px;
+    margin-top: .5em;
 }
 
 .post-comments {
-    margin-top: 8px;
+    margin-top: .5em;
 }
 
 .post-add-comment {
-    padding: 8px 16px 8px 16px;
+    padding: .5em 1em .5em 1em;
 }
 
 .post-add-comment-input {
