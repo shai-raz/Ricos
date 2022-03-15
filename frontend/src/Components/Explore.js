@@ -17,7 +17,7 @@ const Explore = () => {
                 title="Pizza Margherita"
                 author="Moshe Deutsch"
                 authorId="1"
-                img="http://cdn.shopify.com/s/files/1/0508/5514/9736/articles/8fe368762e1a65f1d82eb952ef5a0e71.jpg?v=1621429226"
+                img="https://cdn.shopify.com/s/files/1/0205/9582/articles/20220211142347-margherita-9920_ba86be55-674e-4f35-8094-2067ab41a671.jpg?crop=center&height=800&v=1644590192&width=800"
                 description="Italian pizza" />
             <ExploreMiniPost
                 postId="3"
@@ -38,7 +38,7 @@ const Explore = () => {
                 title="Pizza Margherita"
                 author="Moshe Deutsch"
                 authorId="1"
-                img="http://cdn.shopify.com/s/files/1/0508/5514/9736/articles/8fe368762e1a65f1d82eb952ef5a0e71.jpg?v=1621429226"
+                img="https://cdn.shopify.com/s/files/1/0205/9582/articles/20220211142347-margherita-9920_ba86be55-674e-4f35-8094-2067ab41a671.jpg?crop=center&height=800&v=1644590192&width=800"
                 description="Italian pizza" />
             <ExploreMiniPost
                 postId="3"
@@ -59,7 +59,7 @@ const Explore = () => {
                 title="Pizza Margherita"
                 author="Moshe Deutsch"
                 authorId="1"
-                img="http://cdn.shopify.com/s/files/1/0508/5514/9736/articles/8fe368762e1a65f1d82eb952ef5a0e71.jpg?v=1621429226"
+                img="https://cdn.shopify.com/s/files/1/0205/9582/articles/20220211142347-margherita-9920_ba86be55-674e-4f35-8094-2067ab41a671.jpg?crop=center&height=800&v=1644590192&width=800"
                 description="Italian pizza" />
             <ExploreMiniPost
                 postId="3"
@@ -80,7 +80,7 @@ const Explore = () => {
                 title="Pizza Margherita"
                 author="Moshe Deutsch"
                 authorId="1"
-                img="http://cdn.shopify.com/s/files/1/0508/5514/9736/articles/8fe368762e1a65f1d82eb952ef5a0e71.jpg?v=1621429226"
+                img="https://cdn.shopify.com/s/files/1/0205/9582/articles/20220211142347-margherita-9920_ba86be55-674e-4f35-8094-2067ab41a671.jpg?crop=center&height=800&v=1644590192&width=800"
                 description="Italian pizza" />
             <ExploreMiniPost
                 postId="3"
@@ -101,7 +101,7 @@ const Explore = () => {
                 title="Pizza Margherita"
                 author="Moshe Deutsch"
                 authorId="1"
-                img="http://cdn.shopify.com/s/files/1/0508/5514/9736/articles/8fe368762e1a65f1d82eb952ef5a0e71.jpg?v=1621429226"
+                img="https://cdn.shopify.com/s/files/1/0205/9582/articles/20220211142347-margherita-9920_ba86be55-674e-4f35-8094-2067ab41a671.jpg?crop=center&height=800&v=1644590192&width=800"
                 description="Italian pizza" />
             <ExploreMiniPost
                 postId="3"
@@ -122,7 +122,7 @@ const Explore = () => {
                 title="Pizza Margherita"
                 author="Moshe Deutsch"
                 authorId="1"
-                img="http://cdn.shopify.com/s/files/1/0508/5514/9736/articles/8fe368762e1a65f1d82eb952ef5a0e71.jpg?v=1621429226"
+                img="https://cdn.shopify.com/s/files/1/0205/9582/articles/20220211142347-margherita-9920_ba86be55-674e-4f35-8094-2067ab41a671.jpg?crop=center&height=800&v=1644590192&width=800"
                 description="Italian pizza" />
             <ExploreMiniPost
                 postId="3"
