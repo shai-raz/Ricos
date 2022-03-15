@@ -3,14 +3,14 @@
 }
 
 .comment-container {
-    margin-top: 0.25em;
+    margin-bottom: .25em;
     display: flex;
     align-items: center;
 }
 
 .comment-author {
     font-weight: 600;
-    margin-left: 0.25em;
+    /*margin-left: 0.25em;*/
 }
 
 .comment-content {

@@ -13,7 +13,7 @@ const ProfileMiniPost = (props) => {
     const img = recipe.img
     const title = recipe.title
     const numOfLikes = recipe.numOfLikes
-    const authorName = props.authorName
+    const authorName = recipe.authorName
     //const numOfLikes = numOfLikesState ? numOfLikesState : props.numOfLikes
 
     return (
@@ -39,7 +39,6 @@ const ProfileMiniPost = (props) => {
                 &&
                 <PopupPost
                     recipe={recipe}
-                    authorName={authorName}
                     setVisible={setPopupPostVisible} />
             }
         </div>

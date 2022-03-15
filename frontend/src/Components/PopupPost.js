@@ -1,31 +1,56 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import '../css/popuppost.css'
 import Comment from './Comment'
 import ProfilePicture from './ProfilePicture'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faEgg, faHamburger, faTimes, faUtensils, faUtensilSpoon, faXRay } from '@fortawesome/free-solid-svg-icons'
-import { faAddressBook } from '@fortawesome/free-regular-svg-icons'
+import { faEgg, faTimes, faUtensilSpoon, faXRa } from '@fortawesome/free-solid-svg-icons'
+import { fetchComments, postComment } from '../helpers/Comments'
 
 const PopupPost = (props) => {
+    const [newCommentValue, setNewCommentValue] = useState("")
+    const [comments, setComments] = useState()
     const recipe = props.recipe
     const postId = recipe.id
-    const authorId = recipe.uid
+    const authorId = recipe.authorId
     const description = recipe.description
     const ingredients = recipe.ingredients
     const steps = recipe.steps
     const img = recipe.img
     const title = recipe.title
     const numOfLikes = recipe.numOfLikes
-    const authorName = props.authorName
+    const authorName = recipe.authorName
     //const numOfLikes = numOfLikesState ? numOfLikesState : props.numOfLikes
     //const liked = likedState ? likedState : (props.liked === 1)
+    const jwt = localStorage.getItem('jwt') // move to context
 
     const hidePopup = () => {
         props.setVisible(false)
     }
 
+    const onNewCommentChangeHandler = (e) => {
+        setNewCommentValue(e.target.value)
+    }
+
     const keyPressed = (e) => {
-        console.log(e.target, e.currentTarget)
+        if (e.keyCode === 13) {
+            //alert("comment '" + event.target.value + "' on post #" + postId)
+            postComment(postId, e.target.value, jwt)
+                .then(res => {
+                    if (res)
+                        fetchComments(postId)
+                            .then(res => {
+                                setComments(res)
+                            })
+                            .catch(err => {
+                                console.error(err)
+                            })
+                    else
+                        alert("Error posting comment")
+                }).catch(err => {
+                    console.error(err)
+                })
+            setNewCommentValue("")
+        }
     }
 
     const handleOutsideClick = (e) => {
@@ -33,15 +58,22 @@ const PopupPost = (props) => {
             hidePopup()
     }
 
-    
-
     useEffect(() => {
         const handleEsc = (e) => {
             if (e.keyCode === 27) // ESC
                 hidePopup()
         }
         window.addEventListener('keydown', handleEsc)
-    }, [props.setVisible])
+
+        if (!comments)
+            fetchComments(postId)
+                .then((res) => {
+                    setComments(res)
+                }).
+                catch((err) => {
+                    console.error(err)
+                })
+    }, [comments])
 
     return (
         <div className="popuppost-container" onClick={handleOutsideClick}>
@@ -115,13 +147,31 @@ const PopupPost = (props) => {
                 </div>
                 <div className="popuppost-right-container">
                     <div className="popuppost-comments-container">
-                        <Comment authorName="Chen" authorId="6" content="nadirsrrrrrrrr" withPfp={true} />
-                        <Comment authorName="Chen" authorId="3" content="nadirrrrrrrrr" withPfp={true} />
+                        {comments && comments.length > 0 && comments.map((comment, index) => {
+                            return (
+                                <Comment
+                                    key={index}
+                                    authorId={comment.uid}
+                                    authorName={comment.fullName}
+                                    profilePic={comment.profilePic}
+                                    content={comment.content}
+                                    withPfp={true}
+                                />
+                            )
+                        })}
+
+                        {/*<Comment authorName="Chen" authorId="6" content="nadirsrrrrrrrr" withPfp={true} />
+                        <Comment authorName="Chen" authorId="3" content="nadirrrrrrrrr" withPfp={true} />*/}
 
                     </div>
                     <div className="popuppost-add-comment">
-                        <input className="popuppost-add-comment-input" type="text" placeholder="Add a comment"
-                            onKeyDown={keyPressed}></input>
+                        <input className="popuppost-add-comment-input"
+                            type="text"
+                            placeholder="Add a comment"
+                            onChange={onNewCommentChangeHandler}
+                            onKeyDown={keyPressed}
+                            value={newCommentValue}
+                        />
                     </div>
                 </div>
             </div>

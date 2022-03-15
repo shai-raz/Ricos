@@ -9,29 +9,44 @@ import '@szhsin/react-menu/dist/index.css'
 import Comment from './Comment'
 import axios from 'axios'
 import { BASE_API_URL, UNFOLLLOW_API_URL } from '../consts'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PopupPost from './PopupPost'
+import { fetchComments, postComment } from '../helpers/Comments'
+import { useRenderCount } from '@gilbarbara/hooks'
 
 const Post = (props) => {
-    const [likedState, setLikedState] = useState() // true if liked by current user
-    const [numOfLikesState, setNumOfLikesState] = useState()
-    const [popupPostVisible, setPopupPostVisible] = useState(false)
+    const recipe = props.recipe
 
-    const postId = props.postId
-    const authorId = props.authorId
-    const title = props.title
-    const authorName = props.authorName
-    const img = props.img
-    const profilePic = props.profilePic
-    const numOfLikes = numOfLikesState ? numOfLikesState : props.numOfLikes
-    const description = props.description
-    const liked = likedState ? likedState : (props.liked === 1)
+    const [liked, setLikedState] = useState(recipe.liked === 1) // true if liked by current user
+    const [numOfLikes, setNumOfLikesState] = useState(recipe.numOfLikes)
+    const [popupPostVisible, setPopupPostVisible] = useState(false)
+    const [comments, setComments] = useState()
+
+    const postId = recipe.id
+    const authorId = recipe.uid
+    const title = recipe.title
+    const authorName = recipe.authorName
+    const img = recipe.img
+    const profilePic = recipe.profilePic
+    const description = recipe.description
 
     const jwt = localStorage.getItem('jwt')
 
     const headers = {
         "Authorization": "Bearer " + jwt,
     }
+
+    useEffect(() => {
+        if (!comments)
+            fetchComments(postId)
+                .then((res) => {
+                    setComments(res)
+                })
+                .catch((err) => {
+                    console.error(err)
+                })
+
+    }, [comments])
 
     const like = () => {
         if (!liked) { // like
@@ -67,7 +82,7 @@ const Post = (props) => {
 
     }
 
-    const comment = () => {
+    const showComments = () => {
         alert("comment post #" + postId)
     }
 
@@ -76,9 +91,6 @@ const Post = (props) => {
     }
 
     const unfollow = () => {
-        const headers = {
-            "Authorization": "Bearer " + jwt,
-        }
         const data = {
             uid: authorId
         }
@@ -99,9 +111,43 @@ const Post = (props) => {
         alert("report post #" + postId)
     }
 
+    /*const postComment = (comment) => {
+        const data = {
+            rid: postId,
+            content: comment
+        }
+        axios
+            .post(BASE_API_URL + "/recipes/comments/post", data, { headers })
+            .then((res) => {
+                if (res.status === 200)
+                    fetchComments()
+                else
+                    alert("Error posting comment")
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+    }*/
+
     const keyPressed = (event) => {
         if (event.keyCode === 13) {
-            alert("comment '" + event.target.value + "' on post #" + postId)
+            //alert("comment '" + event.target.value + "' on post #" + postId)
+            postComment(postId, event.target.value, jwt)
+                .then(res => {
+                    if (res)
+                        fetchComments(postId)
+                            .then(res => {
+                                setComments(res)
+                            })
+                            .catch(err => {
+                                console.error(err)
+                            })
+                    else
+                        alert("Error posting comment")
+                }).catch(err => {
+                    console.error(err)
+                })
+            //postComment(event.target.value)
             event.target.value = ''
         }
     }
@@ -134,7 +180,7 @@ const Post = (props) => {
                 <div className="post-header-right">
                     <Menu menuButton={<button className="dropdown-menu-button"><FontAwesomeIcon icon={faEllipsisV} /></button>}>
                         <MenuItem onClick={unfollow}>Unfollow</MenuItem>
-                        <MenuItem onClick={reportPost}>Report</MenuItem>
+                        <MenuItem onClick={reportPost} styles={{ color: 'red' }}>Report</MenuItem>
                         {/*<SubMenu label="Open">
                             <MenuItem>index.html</MenuItem>
                         </SubMenu>*/}
@@ -154,12 +200,12 @@ const Post = (props) => {
             <div className="post-footer">
                 <div className="post-actions">
                     <FontAwesomeIcon icon={liked ? faHeartFilled : faHeartEmpty} size="lg" onClick={like} color={liked ? "red" : "black"} />
-                    <FontAwesomeIcon icon={faComment} size="lg" onClick={comment} />
+                    <FontAwesomeIcon icon={faComment} size="lg" onClick={showComments} />
                     <FontAwesomeIcon icon={faPaperPlane} size="lg" onClick={share} />
                 </div>
 
                 <div className="post-likes">
-                    {parseInt(numOfLikesState ? numOfLikesState : numOfLikes).toLocaleString()} likes
+                    {parseInt(numOfLikes).toLocaleString()} likes
                 </div>
 
                 <div className="post-description">
@@ -167,8 +213,19 @@ const Post = (props) => {
                 </div>
 
                 <div className="post-comments">
-                    <Comment authorName="Chen" authorId="3" content="nadirrrrrrrrr" />
-                    <Comment authorName="Nofer" authorId="4" content="mushlammm" />
+                    {comments && comments.length > 0 && comments.map((comment, index) => {
+                        return (
+                            <Comment
+                                key={index}
+                                authorId={comment.uid}
+                                authorName={comment.fullName}
+                                profilePic={comment.profilePic}
+                                content={comment.content}
+                            />
+                        )
+                    })}
+                    {/*<Comment authorName="Chen" authorId="3" content="nadirrrrrrrrr" />
+                    <Comment authorName="Nofer" authorId="4" content="mushlammm" />*/}
                 </div>
 
             </div>
@@ -177,7 +234,9 @@ const Post = (props) => {
                 <input className="post-add-comment-input" type="text" placeholder="Add a comment" onKeyDown={keyPressed}></input>
             </div>
 
-            {popupPostVisible && <PopupPost setVisible={setPopupPostVisible} />}
+            {popupPostVisible && <PopupPost
+                    recipe={recipe}
+                    setVisible={setPopupPostVisible} />}
 
         </div>
 

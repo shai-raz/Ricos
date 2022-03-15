@@ -7,9 +7,11 @@ const port = env.PORT || 8000
 
 /* Recipes */
 const getRecipeRouter = require("./routes/Recipes/getRecipe")
+const getRecipeCommentsRouter = require("./routes/Recipes/getRecipeComments")
 const postRecipeRouter = require("./routes/Recipes/postRecipe")
 const postLikeRecipeRouter = require("./routes/Recipes/like")
 const deleteUnlikeRecipeRouter = require("./routes/Recipes/unlike")
+const postCommentRouter = require("./routes/Recipes/postComment")
 
 /* Users */
 /* user that currently is browsing */
@@ -37,12 +39,16 @@ app.use(express.urlencoded({ extended: false }))
 /* Recipes */
 // /recipes/get/:rid
 app.use(getRecipeRouter)
+// /recipes/comments/get/:rid
+app.use(getRecipeCommentsRouter)
 // /recipes/post
 app.use(postRecipeRouter)
 // /recipes/like
 app.use(postLikeRecipeRouter)
 // /recipes/unlike
 app.use(deleteUnlikeRecipeRouter)
+// /recipes/comments/post
+app.use(postCommentRouter)
 
 /* Users */
 /* user that currently is browsing */

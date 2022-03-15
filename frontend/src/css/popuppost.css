@@ -1,3 +1,8 @@
+:root {
+    --add-comment-height: 32px;
+    --add-comment-top-bottom-padding: 8px;
+}
+
 .popuppost-container {
     position: fixed;
     top: 0;
@@ -112,27 +117,31 @@
     height: 100%;
     width: 33.3%;
     box-sizing: border-box;
+    
 }
 
 .popuppost-comments-container {
     display: flex;
+    height: calc(100% - (var(--add-comment-height) + var(--add-comment-top-bottom-padding) * 2));
     flex-direction: column;
     box-sizing: border-box;
     /*height: 100%;*/
     width: 100%;
     padding: 1em;
+    overflow-y: auto;
 }
 
 .popuppost-add-comment {
-    box-sizing: border-box;
-    padding: 8px 16px 8px 16px;
-    width: 100%;
+    background-color: var(--color-header-light);
     position: absolute;
+    box-sizing: border-box;
+    padding: var(--add-comment-top-bottom-padding) 16px var(--add-comment-top-bottom-padding) 16px;
+    width: 100%;
     bottom: 0;
 }
 
 .popuppost-add-comment-input {
-    height: 32px;
+    height: var(--add-comment-height);
     width: 100%;
     box-sizing: border-box;
     border: none;
