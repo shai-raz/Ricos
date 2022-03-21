@@ -117,7 +117,7 @@
     height: 100%;
     width: 33.3%;
     box-sizing: border-box;
-    
+
 }
 
 .popuppost-comments-container {
@@ -129,6 +129,11 @@
     width: 100%;
     padding: 1em;
     overflow-y: auto;
+}
+
+#popuppost-comments-scroll-placeholder {
+    height: 0;
+    width: 0;
 }
 
 .popuppost-add-comment {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import '../css/popuppost.css'
 import Comment from './Comment'
 import ProfilePicture from './ProfilePicture'
@@ -7,8 +7,10 @@ import { faEgg, faTimes, faUtensilSpoon, faXRa } from '@fortawesome/free-solid-s
 import { fetchComments, postComment } from '../helpers/Comments'
 
 const PopupPost = (props) => {
-    const [newCommentValue, setNewCommentValue] = useState("")
     const [comments, setComments] = useState()
+    const [newCommentValue, setNewCommentValue] = useState("")
+    const [scrollToNewComment, setScrollToNewComment] = useState(false)
+    const commentScrollPlaceholder = useRef()
     const recipe = props.recipe
     const postId = recipe.id
     const authorId = recipe.authorId
@@ -33,13 +35,13 @@ const PopupPost = (props) => {
 
     const keyPressed = (e) => {
         if (e.keyCode === 13) {
-            //alert("comment '" + event.target.value + "' on post #" + postId)
             postComment(postId, e.target.value, jwt)
                 .then(res => {
                     if (res)
                         fetchComments(postId)
                             .then(res => {
                                 setComments(res)
+                                setScrollToNewComment(true)
                             })
                             .catch(err => {
                                 console.error(err)
@@ -73,7 +75,14 @@ const PopupPost = (props) => {
                 catch((err) => {
                     console.error(err)
                 })
-    }, [comments])
+
+        if (scrollToNewComment)
+            commentScrollPlaceholder.current.scrollIntoView({ behavior: 'smooth' })
+
+        return () => {
+            window.removeEventListener('keydown', handleEsc)
+        }
+    }, [comments, scrollToNewComment])
 
     return (
         <div className="popuppost-container" onClick={handleOutsideClick}>
@@ -159,6 +168,8 @@ const PopupPost = (props) => {
                                 />
                             )
                         })}
+                        <div id="popuppost-comments-scroll-placeholder"
+                            ref={commentScrollPlaceholder}></div>
 
                         {/*<Comment authorName="Chen" authorId="6" content="nadirsrrrrrrrr" withPfp={true} />
                         <Comment authorName="Chen" authorId="3" content="nadirrrrrrrrr" withPfp={true} />*/}
