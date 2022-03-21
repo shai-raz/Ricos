@@ -22,7 +22,7 @@ const ProfilePicture = (props) => {
 }
 
 ProfilePicture.propTypes = {
-    size: PropTypes.oneOf(['xs', 'sm', 'lg'])
+    size: PropTypes.oneOf(['xs', 'sm', 'lg', 'responsive'])
 }
 
 ProfilePicture.defaultProps = {

@@ -27,12 +27,13 @@
 
 .profile-info-center {
     flex-direction: column;
-    margin-left: 30px;
+    font-size: 1.3em;
+    margin-left: 1em;
     margin-right: 30px;
 }
 
 .profile-info-name {
-    font-size: 24pt;
+    /*font-size: clamp(1rem, 3vw, 50vw);*/
 }
 
 .profile-name-and-follow {
@@ -108,9 +109,9 @@ button.profile-unfollow-button {
     .profile-info-right {
         margin-right: 6px;
     }
-    .profile-info-name {
+    /*.profile-info-name {
         font-size: 20pt;
-    }
+    }*/
     .profile-info-bio {
         font-size: 11pt;
     }

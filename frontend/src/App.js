@@ -11,6 +11,8 @@ import PopupPost from "./Components/PopupPost"
 import Register from "./Components/Register"
 import Logout from './Components/Logout'
 import NewPost from './Components/NewPost'
+import { MobileView } from 'react-device-detect'
+import MobileFooter from './Components/MobileFooter'
 
 const App = () => {
   const jwt = localStorage.getItem('jwt')
@@ -32,6 +34,9 @@ const App = () => {
             <Route path="/logout" component={Logout} />
             <Route>
               <Header />
+              <MobileView>
+                <MobileFooter />
+              </MobileView>
               <Switch>
                 <Route exact path="/" component={Main} />
                 <Route exact path="/profile/:uid" component={Profile} />
@@ -44,6 +49,7 @@ const App = () => {
                   <Redirect to="/" />
                 </Route>
               </Switch>
+              
             </Route>
           </Switch>
         </div>

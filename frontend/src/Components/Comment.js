@@ -1,4 +1,4 @@
-import ProfilePicture from './ProfilePicture';
+import ProfilePicture from './ProfilePicture'
 import '../css/comment.css'
 
 const Comment = (props) => {
@@ -9,7 +9,8 @@ const Comment = (props) => {
 
     return (
         <div className="comment-container">
-            { withPfp && <ProfilePicture id={authorId} size="xs" isLink={true} /> } {/* TODO: ID*/}
+            {withPfp &&
+                <span className="comment-pfp"><ProfilePicture id={authorId} size="xs" isLink={true} /></span>} {/* TODO: ID*/}
             <span className="comment-author">
                 <a href={"/profile/" + authorId}>
                     {authorName}

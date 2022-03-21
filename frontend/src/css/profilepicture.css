@@ -1,14 +1,16 @@
-.profile-picture-container {
-    margin-right: .25em;
-    margin-bottom: .125em;
-}
-
 .profile-picture-img-xs,
 .profile-picture-img-sm,
- .profile-picture-img-lg {
+.profile-picture-img-lg,
+.profile-picture-img-responsive {
     border-radius: 50%;
-    border: 1px solid gainsboro;
+    border: 1px solid var(--color-light-border);
     display: block;
+    box-shadow: 0px 0px .3em -.075em rgb(0 0 0 / 20%);
+}
+
+.profile-picture-img-responsive {
+    width: 1.1em;
+    height: 1.1em;
 }
 
 .profile-picture-img-xs {
@@ -44,10 +46,7 @@
 
 /* Medium devices (landscape tablets, 768px and up) */
 
-@media only screen and (min-width: 768px) {
-    
-    
-}
+@media only screen and (min-width: 768px) {}
 
 /* Large devices (laptops/desktops, 992px and up) */
 
@@ -56,7 +55,7 @@
         width: 150px;
         height: 150px;
         border-radius: 50%;
-        border: 1px solid gainsboro;
+        border: 1px solid var(--color-light-border);
     }
 }
 

@@ -6,6 +6,7 @@ import { faMinusCircle, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 import { POST_RECIPE_API_URL } from '../consts'
 import axios from 'axios'
+import { Buffer } from 'buffer'
 
 
 const NewPost = () => {
@@ -23,7 +24,7 @@ const NewPost = () => {
     const {
         register,
         handleSubmit,
-        watch,
+        //watch,
     } = useForm()
 
     /* handle changed on ingredients list,
@@ -60,7 +61,7 @@ const NewPost = () => {
 
     /* remove an ingredient from the ingredients list */
     const removeIngredient = (index) => {
-        if (ingredients.length == 1)
+        if (ingredients.length === 1)
             return
 
         const newIngredients = [...ingredients]
@@ -73,7 +74,7 @@ const NewPost = () => {
     }
 
     const removeStep = (index) => {
-        if (steps.length == 1)
+        if (steps.length === 1)
             return
 
         const newSteps = [...steps]
@@ -94,7 +95,8 @@ const NewPost = () => {
                 console.log(res)
             })
             .catch(err => {
-                console.error(err)
+                console.error(err.response.status)
+                console.error(err.response.data)
             })
     }
 
@@ -157,6 +159,7 @@ const NewPost = () => {
                         type="text"
                         id="description"
                         placeholder="A sweet salmon with a hint of lemon"
+                        required
                     />
                 </div>
 
@@ -173,6 +176,7 @@ const NewPost = () => {
                         type="file"
                         id="image"
                         placeholder="image"
+                        required
                     />
                 </div>
 
@@ -198,7 +202,7 @@ const NewPost = () => {
 
                             {ingredients.map((ingredient, i) => {
                                 return (
-                                    <>
+                                    <React.Fragment key={i}>
                                         <div className='new-post-ingredients-delete'>
                                             <FontAwesomeIcon
                                                 icon={faTrashAlt}
@@ -235,7 +239,7 @@ const NewPost = () => {
                                                 onChange={(e) => handleIngredientsChange(e, i)}
                                             />
                                         </div>
-                                    </>
+                                    </React.Fragment>
                                 )
                             })}
 
@@ -257,8 +261,8 @@ const NewPost = () => {
                         <div className='new-post-input-steps-container'>
                             {steps.map((step, i) => {
                                 return (
-                                    <>
-                                        <div clasName='new-post-steps-index'>
+                                    <React.Fragment key={i}>
+                                        <div className='new-post-steps-index'>
                                             {i + 1}.
                                         </div>
                                         <div className='new-post-steps-content'>
@@ -267,16 +271,16 @@ const NewPost = () => {
                                                 value={step}
                                                 onChange={(e) => handleStepsChange(e, i)} />
                                         </div>
-                                        {i != steps.length - 1
+                                        {i !== steps.length - 1
                                             && <div className='new-post-steps-delete'
                                                 onClick={() => { removeStep(i) }}>
                                                 <FontAwesomeIcon icon={faMinusCircle} size="lg" />
                                             </div>}
-                                        {i == steps.length - 1 &&
+                                        {i === steps.length - 1 &&
                                             <div className='new-post-steps-add' onClick={addStep}>
                                                 <FontAwesomeIcon icon={faPlusCircle} size="lg" />
                                             </div>}
-                                    </>
+                                    </React.Fragment>
                                 )
                             })}
                         </div>

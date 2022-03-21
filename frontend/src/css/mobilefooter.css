@@ -1,0 +1,22 @@
+.footer-mobile-container {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: .5em;
+    border-top: 1px solid var(--color-light-border);
+    background-color: var(--color-header-light);
+    box-shadow: 0px .5px 6px -1.5px rgb(0 0 0 / 20%);
+    font-size: 1.35rem;
+    z-index: 1;
+}
+
+.footer-mobile-inner-container {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}

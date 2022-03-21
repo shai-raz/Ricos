@@ -34,7 +34,11 @@
   width: calc(5 * 1.75em);
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
+}
+
+.header-icons-container > * {
+  margin-left: .35em;
 }
 
 .header-burger-icon {
@@ -46,7 +50,7 @@
   width: 14em;
   text-indent: 5px;
   border-radius: 5px;
-  border: solid 1.5px #d3d3d3;
+  border: 1px solid var(--color-lighter-border);
 }
 
 /*.search-bar:hover {
@@ -65,11 +69,7 @@ a:visited {
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .header-icons-container {
-    display: none;
-  }
-
-  .header-burger-icon{ 
-    display: block;
+    width: auto;
   }
 
   .search-bar {
