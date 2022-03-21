@@ -12,10 +12,13 @@ import { BASE_API_URL, UNFOLLLOW_API_URL } from '../consts'
 import { useState, useEffect } from 'react'
 import PopupPost from './PopupPost'
 import { fetchComments, postComment } from '../helpers/Comments'
-import { useRenderCount } from '@gilbarbara/hooks'
+import { formatDistance } from 'date-fns'
+
+const MAX_COMMENTS = 3
 
 const Post = (props) => {
     const recipe = props.recipe
+    console.log(recipe)
 
     const [liked, setLikedState] = useState(recipe.liked === 1) // true if liked by current user
     const [numOfLikes, setNumOfLikesState] = useState(recipe.numOfLikes)
@@ -23,12 +26,14 @@ const Post = (props) => {
     const [comments, setComments] = useState()
 
     const postId = recipe.id
-    const authorId = recipe.uid
+    const authorId = recipe.authorId
     const title = recipe.title
     const authorName = recipe.authorName
     const img = recipe.img
     const profilePic = recipe.profilePic
     const description = recipe.description
+    const date = new Date(recipe.date)
+    const dateDiff = formatDistance(date, new Date(), { addSuffix: true })
 
     const jwt = localStorage.getItem('jwt')
 
@@ -111,27 +116,8 @@ const Post = (props) => {
         alert("report post #" + postId)
     }
 
-    /*const postComment = (comment) => {
-        const data = {
-            rid: postId,
-            content: comment
-        }
-        axios
-            .post(BASE_API_URL + "/recipes/comments/post", data, { headers })
-            .then((res) => {
-                if (res.status === 200)
-                    fetchComments()
-                else
-                    alert("Error posting comment")
-            })
-            .catch((err) => {
-                console.error(err)
-            })
-    }*/
-
     const keyPressed = (event) => {
         if (event.keyCode === 13) {
-            //alert("comment '" + event.target.value + "' on post #" + postId)
             postComment(postId, event.target.value, jwt)
                 .then(res => {
                     if (res)
@@ -147,7 +133,6 @@ const Post = (props) => {
                 }).catch(err => {
                     console.error(err)
                 })
-            //postComment(event.target.value)
             event.target.value = ''
         }
     }
@@ -190,7 +175,7 @@ const Post = (props) => {
             </div>
 
             <div className="post-body">
-                <div className="post-img-container" onDoubleClick={like}>
+                <div className="post-img-container" onClick={setPopupPostVisible}>
                     <img className="post-img"
                         src={'data:image/png;base64, ' + img}
                         alt="recipe" />
@@ -204,8 +189,13 @@ const Post = (props) => {
                     <FontAwesomeIcon icon={faPaperPlane} size="lg" onClick={share} />
                 </div>
 
-                <div className="post-likes">
-                    {parseInt(numOfLikes).toLocaleString()} likes
+                <div className="post-likes-and-date">
+                    <div className="post-likes">
+                        {parseInt(numOfLikes).toLocaleString()} likes
+                    </div>
+                    <div className="post-date">
+                        {dateDiff}
+                        </div>
                 </div>
 
                 <div className="post-description">
@@ -213,21 +203,26 @@ const Post = (props) => {
                 </div>
 
                 <div className="post-comments">
-                    {comments && comments.length > 0 && comments.map((comment, index) => {
-                        return (
-                            <Comment
-                                key={index}
-                                authorId={comment.uid}
-                                authorName={comment.fullName}
-                                profilePic={comment.profilePic}
-                                content={comment.content}
-                            />
-                        )
-                    })}
+                    {comments &&
+                        comments.length > 0 &&
+                        comments.slice(0, MAX_COMMENTS).map((comment, index) => {
+                            return (
+                                <Comment
+                                    key={index}
+                                    authorId={comment.uid}
+                                    authorName={comment.fullName}
+                                    profilePic={comment.profilePic}
+                                    content={comment.content}
+                                />
+                            )
+                        })}
+                    {comments?.length > MAX_COMMENTS &&
+                        <div className="post-comments-more">
+                            <a onClick={setPopupPostVisible}>Show {comments.length - MAX_COMMENTS} more comment{(comments.length - MAX_COMMENTS > 1) ? "s" : ""}</a>
+                        </div>}
                     {/*<Comment authorName="Chen" authorId="3" content="nadirrrrrrrrr" />
                     <Comment authorName="Nofer" authorId="4" content="mushlammm" />*/}
                 </div>
-
             </div>
 
             <div className="post-add-comment">
@@ -235,8 +230,8 @@ const Post = (props) => {
             </div>
 
             {popupPostVisible && <PopupPost
-                    recipe={recipe}
-                    setVisible={setPopupPostVisible} />}
+                recipe={recipe}
+                setVisible={setPopupPostVisible} />}
 
         </div>
 

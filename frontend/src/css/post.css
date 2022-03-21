@@ -76,6 +76,7 @@
 }
 
 .post-img-container {
+    cursor: pointer;
     display: flex;
 }
 
@@ -93,8 +94,13 @@
     margin-right: .5em;
 }
 
-.post-likes {
-    margin-top: .5em;
+.post-likes-and-date {
+    margin-top: .65rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: .9rem;
 }
 
 .post-description {
@@ -102,6 +108,11 @@
 }
 
 .post-comments {
+    margin-top: .5em;
+}
+
+.post-comments-more {
+    font-size: .85rem;
     margin-top: .5em;
 }
 
