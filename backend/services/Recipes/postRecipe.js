@@ -1,23 +1,24 @@
 const db = require("../db")
 
 async function createRecipe(uid, date, title, desc, img, ingredients, steps) {
-  const insertRecipe = await db.query(
-    "INSERT INTO `Recipe`(`uid`, `date`, `title`, `description`, `img`, `ingredients`, `steps`) VALUES(?, ?, ?, ?, ?, ?, ?)",
-    [uid, date, title, desc, img, ingredients, steps]
-  )
+  const insertQuery = "INSERT INTO `Recipe`(`uid`, `date`, `title`, `description`, `img`, `ingredients`, `steps`) VALUES(?, ?, ?, ?, ?, ?, ?)"
+  const insertValues = [uid, date, title, desc, img, ingredients, steps]
+  
+  const updateQuery = "UPDATE `Users` SET `numOfRecipes` = `numOfRecipes` + 1 WHERE `uid` = ?"
+  const updateValues = [uid]
 
-  const updateNumOfRecipes = await db.query(
-    "UPDATE `Users` SET `numOfRecipes` = `numOfRecipes` + 1 WHERE `uid` = ?",
-    [uid]
-  )
+  try {
+    const transaction = await db.transaction([insertQuery, updateQuery], [insertValues, updateValues])
 
-  let message = "Error creating recipe"
-
-  if (insertRecipe.affectedRows && updateNumOfRecipes.affectedRows) {
-    message = "Recipe created successfully"
+    if (transaction[0][0].affectedRows != 0 && transaction[1][0].affectedRows != 0)
+      return true
+      
+  } catch (err) {
+    console.log(err)
+    return false
   }
 
-  return { message }
+  return false
 }
 
 module.exports = {

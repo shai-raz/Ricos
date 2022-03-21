@@ -1,28 +1,25 @@
-const db = require("../db");
+const db = require("../db")
 
 async function unlikeRecipe(uid, rid) {
-    try {
-        const deleteQ = await db.query(
-            "DELETE FROM RecipeLikes WHERE uid = ? and rid = ?",
-            [uid, rid]
-        )
+    const deleteQuery = "DELETE FROM RecipeLikes WHERE uid = ? and rid = ?"
+    const deleteValues = [uid, rid]
+    const updateQuery = "UPDATE Recipe SET numOfLikes = numOfLikes - 1 WHERE rid = ?"
+    const updateValues = [rid]
 
-        if (deleteQ.affectedRows != 0) {
-            const updateQ = await db.query(
-                "UPDATE Recipe SET numOfLikes = numOfLikes - 1 WHERE rid = ?",
-                [rid]
-            )
-            if (updateQ.affectedRows != 0)
-                return true
-        }
+    try {
+        const transaction = await db.transaction([deleteQuery, updateQuery], [deleteValues, updateValues])
+
+        if (transaction[0][0].affectedRows != 0 && transaction[1][0].affectedRows != 0)
+            return true
 
     } catch (err) {
         console.log(err)
         return false
     }
+
     return false
 }
 
 module.exports = {
     unlikeRecipe,
-};
+}
