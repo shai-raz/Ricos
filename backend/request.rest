@@ -67,6 +67,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuY
 
 ###
 
+GET http://localhost:8000/users/1/recipes
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
+
+###
+
 POST http://localhost:8000/recipes/like
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
@@ -83,13 +88,13 @@ GET http://localhost:8000/recipes/getcomments/1
 
 POST http://localhost:8000/recipes/post
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsInVzZXJuYW1lIjoiMSIsIm1haWwiOiIxIiwiZmlyc3ROYW1lIjoiMSIsImxhc3ROYW1lIjoiMSIsImlhdCI6MTYzMTYxNTMyN30.hPbrezGSS92U7-K0PdMu1R8L7Zn7a3PTnxOl6BUAwZE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInVzZXJuYW1lIjoiMSIsIm1haWwiOiJqYW5lZG9lQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkphbmUiLCJsYXN0TmFtZSI6IkRvZSIsImlhdCI6MTY0NzQyODM3NH0.TumLDJeO436tCYnkJ0KbTy-aarnn_xu0iNoLSvkGMSo
 
 {
     "title": "1",
     "description": "1",
-    "ingredients": "[1,2,3]",
-    "steps": "[1,2,3]",
+    "ingredients": [{"amount": 1, "unit":"cup","ingredient":"avcoado"}],
+    "steps": ["1",2,3],
     "img": "1"
 }
 
