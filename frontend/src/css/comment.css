@@ -8,6 +8,11 @@
     align-items: center;
 }
 
+.comment-pfp {
+    margin-right: .25em;
+    margin-bottom: .125em;
+}
+
 .comment-author {
     font-weight: 600;
     /*margin-left: 0.25em;*/
